@@ -11,8 +11,6 @@ public class PlayerControl : MonoBehaviour
     public GameObject barrel02;
     public GameObject explosion;
     public GameObject gamemanager;
-    public Text ScoreText;
-    public Text livesUIText;
     public int maxLives;
     public AudioSource audioSource;
     public AudioClip shootAudio;
@@ -33,7 +31,7 @@ public class PlayerControl : MonoBehaviour
     public void Init()
     {
         lives = maxLives;
-        livesUIText.text = lives.ToString();
+        GameplayUI.Instance.SetValueOfLevelText(lives.ToString());
         gameObject.SetActive(true);
         transform.position = new Vector2(0, 0);
         Score = 0;
@@ -41,7 +39,7 @@ public class PlayerControl : MonoBehaviour
     // Upsate Score Text
     void UpdateScoreTextUI()
     {
-        ScoreText.text = string.Format("{0:000000}", Score);
+        OpenGameMenu.Instance.SetTextOfScore(Score.ToString());
     }
     // Start is called before the first frame update
     void Start()
@@ -91,7 +89,7 @@ public class PlayerControl : MonoBehaviour
             PlayExplosion();
 
             lives--;
-            livesUIText.text = lives.ToString();
+            GameplayUI.Instance.SetValueOfLevelText(lives.ToString());
             if (lives == 0)
             {
                 gameObject.SetActive(false);

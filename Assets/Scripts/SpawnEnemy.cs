@@ -10,7 +10,6 @@ public class SpawnEnemy : MonoBehaviour
     public GameObject gamemanager;
     float spawnTime;
     public float timeToNextLevel;
-    public Text levelText;
     int level;
     // Start is called before the first frame update
     void Start()
@@ -19,18 +18,13 @@ public class SpawnEnemy : MonoBehaviour
     // Update level text
     void UpdateLevelText()
     {
-        levelText.enabled = true;
-        levelText.text = "Level " + level;
+        GameplayUI.Instance.SetStateOfLevelText(true);
+        GameplayUI.Instance.SetValueOfLevelText(level.ToString());
         Invoke("HideLevelText", 2f);
     }
     void HideLevelText()
     {
-        levelText.enabled = false;
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GameplayUI.Instance.SetStateOfLevelText(false);
     }
 
     private void CreateEnemy()

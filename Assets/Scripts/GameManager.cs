@@ -5,13 +5,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject playButton;
-    public GameObject gameoverImg;
-    public GameObject player;
     public GameObject enemySpawner;
-    public GameObject gameTitle;
-    public GameObject wintext;
-    public Text levelText;
+    public GameObject player;
     public enum GameManagerState
     {
         Opening,
@@ -34,35 +29,36 @@ public class GameManager : MonoBehaviour
         {
             case GameManagerState.Opening:
                 {
-                    gameoverImg.SetActive(false);
-                    playButton.SetActive(true);
-                    gameTitle.SetActive(true);
-                    levelText.enabled = false;
-                    wintext.SetActive(false);
+                    GameplayUI.Instance.SetStateOfWinText(false);
+                    GameoverMenu.Instance.SetStateOfUI(false);
+                    OpenGameMenu.Instance.SetStateOfButtonPlay(true);
+                    OpenGameMenu.Instance.SetStateOfGameTitle(true);
+                    OpenGameMenu.Instance.SetStateOfLivesObject(true);
+                    OpenGameMenu.Instance.SetStateOfScoreObject(true);
                 }
                 break;
             case GameManagerState.Gameplay:
                 {
-                    gameoverImg.SetActive(false);
-                    wintext.SetActive(false);
-                    playButton.SetActive(false);
                     player.GetComponent<PlayerControl>().Init();
                     enemySpawner.GetComponent<SpawnEnemy>().StartSpawnEnemy();
-                    gameTitle.SetActive(false);
+
+                    OpenGameMenu.Instance.SetStateOfGameTitle(false);
+                    OpenGameMenu.Instance.SetStateOfButtonPlay(false);
                 }
                 break;
             case GameManagerState.Gameover:
                 {
                     enemySpawner.GetComponent<SpawnEnemy>().StopEvents();
-                    gameoverImg.SetActive(true);
-                    playButton.SetActive(true);
-                    levelText.enabled = false;
+                    OpenGameMenu.Instance.SetStateOfButtonPlay(true) ;
+                    GameplayUI.Instance.SetStateOfLevelText(false);
+                    enemySpawner.GetComponent<SpawnEnemy>().StopEvents();
                 }
                 break;
             case GameManagerState.Win:
                 {
-                    wintext.SetActive(true);
+                    GameplayUI.Instance.SetStateOfWinText(true);
                     Invoke("OpenGame", 2f);
+                    enemySpawner.GetComponent<SpawnEnemy>().StopEvents();
                 }
                 break;
         }
