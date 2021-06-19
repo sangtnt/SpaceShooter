@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
                     enemySpawner.GetComponent<SpawnEnemy>().StopEvents();
                     OpenGameMenu.Instance.SetStateOfButtonPlay(true) ;
                     GameplayUI.Instance.SetStateOfLevelText(false);
+                    GameoverMenu.Instance.SetStateOfUI(true);
                     enemySpawner.GetComponent<SpawnEnemy>().StopEvents();
                 }
                 break;

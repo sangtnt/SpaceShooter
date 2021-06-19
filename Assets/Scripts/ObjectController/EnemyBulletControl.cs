@@ -22,8 +22,8 @@ public class EnemyBulletControl : MonoBehaviour
         pos += speed * Time.deltaTime * _direction;
         transform.position = pos;
 
-        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
-        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+        Vector2 min = CameraManager.GetCameraMin();
+        Vector2 max = CameraManager.GetCameraMax();
 
         if ((pos.x < min.x) || (pos.x > max.x) || (pos.y < min.y) || (pos.y > max.y))
         {

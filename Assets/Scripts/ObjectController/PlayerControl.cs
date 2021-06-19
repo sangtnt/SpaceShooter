@@ -9,12 +9,8 @@ public class PlayerControl : MonoBehaviour
     public GameObject playerBullet;
     public GameObject barrel01;
     public GameObject barrel02;
-    public GameObject explosion;
     public GameObject gamemanager;
     public int maxLives;
-    public AudioSource audioSource;
-    public AudioClip shootAudio;
-    public AudioClip explosionAudio;
     int lives;
     int score;
 
@@ -31,7 +27,7 @@ public class PlayerControl : MonoBehaviour
     public void Init()
     {
         lives = maxLives;
-        GameplayUI.Instance.SetValueOfLevelText(lives.ToString());
+        OpenGameMenu.Instance.SetTextOfLives(lives.ToString());
         gameObject.SetActive(true);
         transform.position = new Vector2(0, 0);
         Score = 0;
@@ -41,11 +37,6 @@ public class PlayerControl : MonoBehaviour
     {
         OpenGameMenu.Instance.SetTextOfScore(Score.ToString());
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -56,7 +47,7 @@ public class PlayerControl : MonoBehaviour
             playerBullet01.transform.position = barrel01.transform.position;
             GameObject playerBullet02 = Instantiate(playerBullet);
             playerBullet02.transform.position = barrel02.transform.position;
-            audioSource.PlayOneShot(shootAudio);
+            SoundManager.Instance.PlayShootingSound();
         }
         // Get direction
         float xDir = Input.GetAxisRaw("Horizontal");
@@ -66,14 +57,8 @@ public class PlayerControl : MonoBehaviour
     }
     private void Move(Vector2 dir)
     {
-        // Get Camera point
-        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
-        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
-        // Calculate min max of Camera for player
-        min.x += gameObject.transform.localScale.x / 2;
-        max.x -= gameObject.transform.localScale.x / 2;
-        min.y += gameObject.transform.localScale.y / 2;
-        max.y -= gameObject.transform.localScale.y / 2;
+        Vector2 min = CameraManager.GetObjectMinLimitInCamera(gameObject);
+        Vector2 max = CameraManager.GetObjectMaxLimitInCamera(gameObject);
         // Calculate new position
         Vector2 pos = transform.position;
         pos += speed * dir * Time.deltaTime;
@@ -89,7 +74,7 @@ public class PlayerControl : MonoBehaviour
             PlayExplosion();
 
             lives--;
-            GameplayUI.Instance.SetValueOfLevelText(lives.ToString());
+            OpenGameMenu.Instance.SetTextOfLives(lives.ToString());
             if (lives == 0)
             {
                 gameObject.SetActive(false);
@@ -99,8 +84,7 @@ public class PlayerControl : MonoBehaviour
     }
     void PlayExplosion()
     {
-        audioSource.PlayOneShot(explosionAudio);
-        GameObject e = Instantiate(explosion);
-        e.transform.position = transform.position;
+        AnimationScript.Instance.PlayExplosionAnim(gameObject.transform.position);
+        SoundManager.Instance.PlayExplosionSound();
     }
 }

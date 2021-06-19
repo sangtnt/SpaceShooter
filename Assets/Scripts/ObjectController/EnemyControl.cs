@@ -5,15 +5,11 @@ using UnityEngine;
 public class EnemyControl : MonoBehaviour
 {
     public float speed;
-    public GameObject explosion;
-    private AudioSource audioSource;
-    public AudioClip explosionAudio;
     bool dead;
     // Start is called before the first frame update
     void Start()
     {
         dead = false;
-        audioSource = FindObjectOfType<AudioSource>();
     }
 
     // Update is called once per frame
@@ -23,7 +19,7 @@ public class EnemyControl : MonoBehaviour
         pos.y -= speed * Time.deltaTime;
         transform.position = pos;
 
-        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
+        Vector2 min = CameraManager.GetCameraMin();
         if (transform.position.y < min.y)
         {
             Destroy(gameObject);
@@ -46,8 +42,7 @@ public class EnemyControl : MonoBehaviour
     }
     void PlayExplosion()
     {
-        GameObject e = Instantiate(explosion);
-        e.transform.position = gameObject.transform.position;
-        audioSource.PlayOneShot(explosionAudio);
+        AnimationScript.Instance.PlayExplosionAnim(gameObject.transform.position);
+        SoundManager.Instance.PlayExplosionSound();
     }
 }

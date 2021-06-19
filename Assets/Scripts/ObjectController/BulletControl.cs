@@ -17,7 +17,7 @@ public class BulletControl : MonoBehaviour
         Vector2 pos = transform.position;
         pos.y += speed * Time.deltaTime;
         transform.position = pos;
-        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+        Vector2 max = CameraManager.GetCameraMax();
         if (pos.y > max.y)
         {
             Destroy(gameObject);
