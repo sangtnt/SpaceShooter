@@ -5,11 +5,6 @@ using UnityEngine;
 public class BulletControl : MonoBehaviour
 {
     public float speed;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -20,14 +15,14 @@ public class BulletControl : MonoBehaviour
         Vector2 max = CameraManager.GetCameraMax();
         if (pos.y > max.y)
         {
-            Destroy(gameObject);
+            PoolManager.Instance.DeactivatePoolObject(gameObject, PoolObjectType.PlayerBullet);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("EnemyShip"))
         {
-            Destroy(gameObject);
+            PoolManager.Instance.DeactivatePoolObject(gameObject, PoolObjectType.PlayerBullet);
         }
     }
 }

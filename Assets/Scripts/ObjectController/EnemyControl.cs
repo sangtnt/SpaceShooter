@@ -22,7 +22,7 @@ public class EnemyControl : MonoBehaviour
         Vector2 min = CameraManager.GetCameraMin();
         if (transform.position.y < min.y)
         {
-            Destroy(gameObject);
+            PoolManager.Instance.DeactivatePoolObject(gameObject, PoolObjectType.Enemy);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,7 +30,7 @@ public class EnemyControl : MonoBehaviour
 
         if (collision.CompareTag("PlayerBullet") || collision.CompareTag("PlayerShip"))
         {
-            Destroy(gameObject);
+            PoolManager.Instance.DeactivatePoolObject(gameObject, PoolObjectType.Enemy);
             PlayExplosion();
             PlayerControl playerControl = FindObjectOfType<PlayerControl>();
             if (!dead)

@@ -43,10 +43,12 @@ public class PlayerControl : MonoBehaviour
         // Shoot when press Space btn
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GameObject playerBullet01 = Instantiate(playerBullet);
+            GameObject playerBullet01 = PoolManager.Instance.GetPoolObject(PoolObjectType.PlayerBullet);
             playerBullet01.transform.position = barrel01.transform.position;
-            GameObject playerBullet02 = Instantiate(playerBullet);
+            playerBullet01.SetActive(true);
+            GameObject playerBullet02 = PoolManager.Instance.GetPoolObject(PoolObjectType.PlayerBullet);
             playerBullet02.transform.position = barrel02.transform.position;
+            playerBullet02.SetActive(true);
             SoundManager.Instance.PlayShootingSound();
         }
         // Get direction
@@ -70,7 +72,6 @@ public class PlayerControl : MonoBehaviour
     {
         if(collision.CompareTag("EnemyShip")|| collision.CompareTag("EnemyBullet"))
         {
-            Destroy(collision.gameObject);
             PlayExplosion();
 
             lives--;

@@ -6,11 +6,6 @@ public class EnemyBulletControl : MonoBehaviour
 {
     public float speed;
     private Vector2 _direction;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
     public void SetDirection(Vector2 dir)
     {
         _direction = dir;
@@ -27,7 +22,14 @@ public class EnemyBulletControl : MonoBehaviour
 
         if ((pos.x < min.x) || (pos.x > max.x) || (pos.y < min.y) || (pos.y > max.y))
         {
-            Destroy(gameObject);
+            PoolManager.Instance.DeactivatePoolObject(gameObject, PoolObjectType.EnemyBullet);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PlayerShip"))
+        {
+            PoolManager.Instance.DeactivatePoolObject(gameObject, PoolObjectType.EnemyBullet);
         }
     }
 }

@@ -29,12 +29,13 @@ public class SpawnEnemy : MonoBehaviour
 
     private void CreateEnemy()
     {
-        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
-        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+        Vector2 min = CameraManager.GetCameraMin();
+        Vector2 max = CameraManager.GetCameraMax();
         Vector2 spawnPos = new Vector2(Random.Range(min.x + transform.localScale.x / 2, max.x - transform.localScale.x / 2), max.y);
 
-        GameObject newEnemy = Instantiate(enemy);
-        enemy.transform.position = spawnPos;
+        GameObject newEnemy = PoolManager.Instance.GetPoolObject(PoolObjectType.Enemy);
+        newEnemy.SetActive(true);
+        newEnemy.transform.position = spawnPos;
         NextEnemy();
     }
 
@@ -45,7 +46,6 @@ public class SpawnEnemy : MonoBehaviour
         {
             spawnEnemyTime = Random.Range(1f, spawnTime);
         }
-        Debug.Log(spawnEnemyTime.ToString());
         Invoke("CreateEnemy", spawnEnemyTime);
     }
     private void IncreaseLevel()
@@ -55,7 +55,6 @@ public class SpawnEnemy : MonoBehaviour
             spawnTime--;
             level++;
             UpdateLevelText();
-            Debug.Log("Increase level\nTime spawn: "+ spawnTime);
         }
         else
         {

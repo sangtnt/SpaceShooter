@@ -45,7 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootingTime: 4
   bullet: {fileID: 101846237603241449, guid: 9cfa8f0ab7f52c04090e22879de9fa79, type: 3}
-  shootAudio: {fileID: 8300000, guid: 33026774b44442e4bb433f164cca18c1, type: 3}
 --- !u!1 &7242358814232002334
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,7 +74,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7242358814232002334}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.4918957, y: 3.2, z: 0}
+  m_LocalPosition: {x: -3.0657787, y: 3.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8486998799700159344}
@@ -165,9 +164,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  explosion: {fileID: 3359031708732622070, guid: 6be344db00b7752428af1f1adc22e7de,
-    type: 3}
-  explosionAudio: {fileID: 8300000, guid: c41ea7b34754e8e4f983936ec790e3b5, type: 3}
 --- !u!61 &6439638889484113240
 BoxCollider2D:
   m_ObjectHideFlags: 0
