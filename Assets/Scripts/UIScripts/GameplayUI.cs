@@ -7,6 +7,7 @@ public class GameplayUI : Singleton<GameplayUI>
 {
     public GameObject levelText;
     public GameObject winText;
+    public GameObject shootingButton;
     public void SetStateOfLevelText(bool state)
     {
         levelText.SetActive(state);
@@ -18,5 +19,10 @@ public class GameplayUI : Singleton<GameplayUI>
     public void SetStateOfWinText(bool state)
     {
         winText.SetActive(state);
+    }
+
+    public void SetStateOfShootingButton(bool state)
+    {
+        shootingButton.SetActive(state);
     }
 }

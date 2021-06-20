@@ -28,10 +28,6 @@ public class PoolManager : Singleton<PoolManager>
     {
         PoolObject poolObject = GetPoolObjectByType(type);
         GameObject pool;
-        if(type == PoolObjectType.Enemy)
-        {
-            Debug.Log(poolObject.pool.Count);
-        }
         if (poolObject.pool.Count > 0)
         {
             pool = poolObject.pool[poolObject.pool.Count - 1];

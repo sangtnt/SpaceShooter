@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
                     OpenGameMenu.Instance.SetStateOfGameTitle(true);
                     OpenGameMenu.Instance.SetStateOfLivesObject(true);
                     OpenGameMenu.Instance.SetStateOfScoreObject(true);
+                    GameplayUI.Instance.SetStateOfShootingButton(false);
                 }
                 break;
             case GameManagerState.Gameplay:
@@ -44,6 +45,8 @@ public class GameManager : MonoBehaviour
 
                     OpenGameMenu.Instance.SetStateOfGameTitle(false);
                     OpenGameMenu.Instance.SetStateOfButtonPlay(false);
+                    GameplayUI.Instance.SetStateOfShootingButton(true);
+                    GameoverMenu.Instance.SetStateOfUI(false);
                 }
                 break;
             case GameManagerState.Gameover:
@@ -53,6 +56,7 @@ public class GameManager : MonoBehaviour
                     GameplayUI.Instance.SetStateOfLevelText(false);
                     GameoverMenu.Instance.SetStateOfUI(true);
                     enemySpawner.GetComponent<SpawnEnemy>().StopEvents();
+                    GameplayUI.Instance.SetStateOfShootingButton(false);
                 }
                 break;
             case GameManagerState.Win:
@@ -60,6 +64,7 @@ public class GameManager : MonoBehaviour
                     GameplayUI.Instance.SetStateOfWinText(true);
                     Invoke("OpenGame", 2f);
                     enemySpawner.GetComponent<SpawnEnemy>().StopEvents();
+                    GameplayUI.Instance.SetStateOfShootingButton(false);
                 }
                 break;
         }

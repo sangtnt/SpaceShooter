@@ -40,17 +40,6 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Shoot when press Space btn
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GameObject playerBullet01 = PoolManager.Instance.GetPoolObject(PoolObjectType.PlayerBullet);
-            playerBullet01.transform.position = barrel01.transform.position;
-            playerBullet01.SetActive(true);
-            GameObject playerBullet02 = PoolManager.Instance.GetPoolObject(PoolObjectType.PlayerBullet);
-            playerBullet02.transform.position = barrel02.transform.position;
-            playerBullet02.SetActive(true);
-            SoundManager.Instance.PlayShootingSound();
-        }
         // Get direction
         float xDir = Input.GetAxisRaw("Horizontal");
         float yDir = Input.GetAxisRaw("Vertical");
@@ -87,5 +76,20 @@ public class PlayerControl : MonoBehaviour
     {
         AnimationScript.Instance.PlayExplosionAnim(gameObject.transform.position);
         SoundManager.Instance.PlayExplosionSound();
+    }
+    public void Shoot()
+    {
+        GameObject playerBullet01 = PoolManager.Instance.GetPoolObject(PoolObjectType.PlayerBullet);
+        playerBullet01.transform.position = barrel01.transform.position;
+        playerBullet01.SetActive(true);
+        GameObject playerBullet02 = PoolManager.Instance.GetPoolObject(PoolObjectType.PlayerBullet);
+        playerBullet02.transform.position = barrel02.transform.position;
+        playerBullet02.SetActive(true);
+        SoundManager.Instance.PlayShootingSound();
+        Invoke("Shoot", 0.2f);
+    }
+    public void CancelShooting()
+    {
+        CancelInvoke("Shoot");
     }
 }
